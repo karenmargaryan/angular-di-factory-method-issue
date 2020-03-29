@@ -5,7 +5,6 @@ import {AppComponent} from './app.component';
 import {PaypalPayment} from './payment/paypal-payment';
 import {CardPayment} from './payment/card-payment';
 import {PaymentService} from './service/payment.service';
-import {Payment} from './payment/payment.interface';
 
 @NgModule({
   declarations: [
@@ -15,11 +14,12 @@ import {Payment} from './payment/payment.interface';
     BrowserModule
   ],
   providers: [
+    PaypalPayment,
+    CardPayment,
     {
       provide: PaymentService,
-      deps: [PaypalPayment, CardPayment],
       useFactory: () => {
-        return new PaymentService(new PaypalPayment());
+        return new PaymentService(new CardPayment());
       }
     }
   ],
